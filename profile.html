@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ - GIVEHADA Academy</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f5;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #fff;
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a2e;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .nav-icon:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-icon svg {
+            width: 18px;
+            height: 18px;
+            color: #555;
+        }
+
+        .nav-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* PROFILE HEADER */
+        .profile-header {
+            background: #fff;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+        }
+
+        .avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 30px;
+            height: 30px;
+            background: #1a1a2e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            cursor: pointer;
+        }
+
+        .avatar-overlay svg {
+            width: 14px;
+            height: 14px;
+            color: #fff;
+        }
+
+        .profile-info h1 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .profile-info .email {
+            color: #888;
+            font-size: 15px;
+            margin-top: 2px;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 12px;
+            border: 1.5px solid #4f46e5;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #4f46e5;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .btn-edit-profile {
+            padding: 10px 20px;
+            border: 2px solid #1a1a2e;
+            border-radius: 8px;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a2e;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-profile:hover {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .btn-share {
+            width: 42px;
+            height: 42px;
+            border: 2px solid #1a1a2e;
+            border-radius: 8px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-share:hover {
+            background: #1a1a2e;
+        }
+
+        .btn-share:hover svg {
+            color: #fff;
+        }
+
+        .btn-share svg {
+            width: 18px;
+            height: 18px;
+            color: #1a1a2e;
+        }
+
+        /* MAIN LAYOUT */
+        .main-content {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 0.6fr;
+            gap: 24px;
+        }
+
+        /* CARDS */
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .card-header a {
+            font-size: 14px;
+            color: #4f46e5;
+            font-weight: 500;
+        }
+
+        .card-header a:hover {
+            text-decoration: underline;
+        }
+
+        /* PROGRESS */
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .progress-item-top .course-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .progress-item-top .chapter {
+            font-size: 13px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .progress-item-top .percentage {
+            font-weight: 700;
+            font-size: 15px;
+            color: #4f46e5;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 8px;
+            background: #e8e8e8;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #4f46e5;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        /* TRANSACTION TABLE */
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transaction-table th {
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            color: #999;
+            letter-spacing: 0.5px;
+            padding: 0 0 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction-table td {
+            padding: 14px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+
+        .transaction-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .transaction-table .amount {
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .status-paid {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .status-pending {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .status-cancelled {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        /* FAVORITES CARD (DARK) */
+        .card-dark {
+            background: #1a1a2e;
+            color: #fff;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+
+        .card-dark h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .video-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .video-item:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .video-item:last-of-type {
+            margin-bottom: 20px;
+        }
+
+        .video-thumb {
+            width: 64px;
+            height: 44px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .video-thumb svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .video-info .video-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .video-info .video-meta {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .btn-discover {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid rgba(255,255,255,0.5);
+            border-radius: 8px;
+            background: transparent;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-discover:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #fff;
+        }
+
+        /* CERTIFICATES */
+        .cert-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .cert-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #f0edff;
+            color: #4f46e5;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 24px 20px;
+            }
+
+            .profile-header-right {
+                align-self: flex-start;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 0 16px;
+            }
+
+            .profile-info h1 {
+                font-size: 24px;
+            }
+
+            .avatar-wrapper,
+            .avatar-large {
+                width: 80px;
+                height: 80px;
+            }
+
+            .avatar-large {
+                font-size: 28px;
+            }
+
+            .transaction-table {
+                font-size: 12px;
+            }
+
+            .transaction-table th {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .profile-header-left {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            .profile-header-right {
+                align-self: center;
+            }
+
+            .transaction-table .hide-mobile {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="index.html" class="logo">GIVEHADA <span>Academy</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#courses">Khóa học</a></li>
+                <li><a href="#">Thư viện</a></li>
+                <li><a href="#">Cộng đồng</a></li>
+                <li><a href="#">Hỗ trợ</a></li>
+            </ul>
+        </div>
+        <div class="navbar-right">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+            </div>
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+            </div>
+            <div class="nav-avatar">AN</div>
+        </div>
+    </nav>
+
+    <!-- PROFILE HEADER -->
+    <section class="profile-header">
+        <div class="profile-header-left">
+            <div class="avatar-wrapper">
+                <div class="avatar-large">AN</div>
+                <div class="avatar-overlay">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="profile-info">
+                <h1>Nguyễn Văn An</h1>
+                <p class="email">an.nguyen@email.com</p>
+                <span class="badge-pill">TÀI KHOẢN TRẢ PHÍ</span>
+            </div>
+        </div>
+        <div class="profile-header-right">
+            <button class="btn-edit-profile" onclick="alert('Tính năng đang phát triển')">Chỉnh sửa hồ sơ</button>
+            <button class="btn-share" onclick="alert('Đã sao chép link hồ sơ')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+
+            <!-- Tiến độ học tập -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Tiến độ học tập</h2>
+                    <a href="#">Xem tất cả</a>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item-top">
+                        <div>
+                            <div class="course-name">Skincare Cơ Bản A-Z</div>
+                            <div class="chapter">Chương 4: Quy trình dưỡng da</div>
+                        </div>
+                        <div class="percentage">75%</div>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item-top">
+                        <div>
+                            <div class="course-name">Trị Mụn Chuyên Sâu</div>
+                            <div class="chapter">Chương 2: Nhận diện loại mụn</div>
+                        </div>
+                        <div class="percentage">42%</div>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width: 42%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item-top">
+                        <div>
+                            <div class="course-name">Đọc Hiểu Thành Phần</div>
+                            <div class="chapter">Chương 1: Giới thiệu thành phần</div>
+                        </div>
+                        <div class="percentage">12%</div>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width: 12%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lịch sử giao dịch -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Lịch sử giao dịch</h2>
+                </div>
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>NGÀY THÁNG</th>
+                            <th>NỘI DUNG</th>
+                            <th>SỐ TIỀN</th>
+                            <th>TRẠNG THÁI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12/10/2025</td>
+                            <td>Gói Học viên Premium (1 Năm)</td>
+                            <td class="amount">2.499.000đ</td>
+                            <td><span class="status-badge status-paid">ĐÃ THANH TOÁN</span></td>
+                        </tr>
+                        <tr>
+                            <td>25/11/2025</td>
+                            <td>Khóa học Trị Mụn Chuyên Sâu</td>
+                            <td class="amount">499.000đ</td>
+                            <td><span class="status-badge status-pending">CHƯA THANH TOÁN</span></td>
+                        </tr>
+                        <tr>
+                            <td>20/08/2025</td>
+                            <td>Tài liệu Skincare eBook</td>
+                            <td class="amount">120.000đ</td>
+                            <td><span class="status-badge status-cancelled">ĐÃ HỦY</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+
+            <!-- Video yêu thích -->
+            <div class="card-dark">
+                <h2>Video yêu thích</h2>
+
+                <a href="course.html" class="video-item">
+                    <div class="video-thumb">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">Cách nhận biết loại da</div>
+                        <div class="video-meta">12 phút &bull; Bài giảng</div>
+                    </div>
+                </a>
+
+                <a href="course.html" class="video-item">
+                    <div class="video-thumb">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">Serum Vitamin C đúng cách</div>
+                        <div class="video-meta">45 phút &bull; Livestream</div>
+                    </div>
+                </a>
+
+                <a href="course.html" class="video-item">
+                    <div class="video-thumb">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">Quy trình skincare tối</div>
+                        <div class="video-meta">18 phút &bull; Podcast</div>
+                    </div>
+                </a>
+
+                <a href="index.html#courses" class="btn-discover">KHÁM PHÁ THÊM</a>
+            </div>
+
+            <!-- Chứng chỉ đạt được -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Chứng chỉ đạt được</h2>
+                </div>
+                <div class="cert-badges">
+                    <span class="cert-badge">SKINCARE CƠ BẢN</span>
+                    <span class="cert-badge">THÀNH PHẦN MỸ PHẨM</span>
+                    <span class="cert-badge">CHĂM SÓC DA DẦU</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

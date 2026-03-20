@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - GIVEHADA Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #f0f2f5 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: #1a1a2e;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .logo-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 32px;
+        }
+
+        .login-card {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 36px 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .forgot-link {
+            font-size: 13px;
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+            background: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 0 16px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #1a1a2e;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input:focus {
+            border-color: #4f46e5;
+            background: #fff;
+        }
+
+        .btn-login {
+            width: 100%;
+            height: 52px;
+            background: #1a1a2e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-login:hover {
+            background: #2a2a42;
+        }
+
+        .btn-login:active {
+            transform: scale(0.99);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 28px 0;
+            gap: 16px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9ca3af;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-social {
+            flex: 1;
+            height: 48px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
+            color: #1a1a2e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-social:hover {
+            background: #e5e5e5;
+        }
+
+        .btn-social svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .signup-prompt {
+            margin-top: 28px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .signup-prompt a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-prompt a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 48px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: #9ca3af;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #6b7280;
+            text-decoration: underline;
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: #b0b5be;
+        }
+
+        @media (max-width: 520px) {
+            .login-card {
+                padding: 28px 20px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-icon">
+            <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 3L17.5 11.5L26 9L19.5 15L26 21L17.5 18.5L15 27L12.5 18.5L4 21L10.5 15L4 9L12.5 11.5L15 3Z" fill="white"/>
+                <circle cx="15" cy="15" r="2" fill="#4f46e5"/>
+            </svg>
+        </div>
+
+        <h1 class="brand-name">GIVEHADA Academy</h1>
+        <p class="subtitle">Chào mừng bạn đến với GIVEHADA Academy</p>
+
+        <div class="login-card">
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label class="form-label" for="email">Địa chỉ Email</label>
+                    </div>
+                    <input type="email" id="email" class="form-input" placeholder="name@example.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label class="form-label" for="password">Mật khẩu</label>
+                        <a href="#" class="forgot-link">Quên mật khẩu?</a>
+                    </div>
+                    <input type="password" id="password" class="form-input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn-login">Đăng nhập</button>
+            </form>
+
+            <div class="divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">Hoặc tiếp tục với</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <div class="social-buttons">
+                <button type="button" class="btn-social">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Google
+                </button>
+                <button type="button" class="btn-social">
+                    <svg viewBox="0 0 24 24" fill="#1a1a2e" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                    </svg>
+                    Apple
+                </button>
+            </div>
+        </div>
+
+        <p class="signup-prompt">Mới đến Học viện? <a href="#">Tạo tài khoản</a></p>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 GIVEHADA ACADEMY</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var email = document.getElementById('email').value.trim();
+            var password = document.getElementById('password').value.trim();
+
+            if (!email && !password) {
+                alert('Vui lòng nhập địa chỉ email và mật khẩu.');
+                return;
+            }
+
+            if (!email) {
+                alert('Vui lòng nhập địa chỉ email.');
+                return;
+            }
+
+            if (!password) {
+                alert('Vui lòng nhập mật khẩu.');
+                return;
+            }
+
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
