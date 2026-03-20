@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIVEHADA Academy — E-Learning</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      color: #1a1a2e;
+      background: #f5f5f5;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    img { display: block; max-width: 100%; }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .navbar-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a2e;
+      white-space: nowrap;
+    }
+    .navbar-logo span { color: #4f46e5; }
+    .navbar-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .navbar-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.2s;
+    }
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: #1a1a2e;
+    }
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 8px 16px;
+      width: 240px;
+    }
+    .search-box svg {
+      width: 16px;
+      height: 16px;
+      color: #999;
+      flex-shrink: 0;
+    }
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      color: #666;
+      width: 100%;
+    }
+    .search-box input::placeholder { color: #aaa; }
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+      color: #555;
+    }
+    .nav-icon:hover { background: #f0f0f0; }
+    .nav-icon svg { width: 20px; height: 20px; }
+    .nav-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+    }
+    .nav-avatar svg { width: 20px; height: 20px; }
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 0;
+    }
+    .hero {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      height: 420px;
+      background: #1a1a2e;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.55;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(15, 15, 35, 0.85) 0%, rgba(15, 15, 35, 0.4) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      max-width: 600px;
+    }
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #4f46e5;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { background: #4338ca; transform: translateY(-1px); }
+    .btn-primary svg { width: 18px; height: 18px; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
+    .section-courses {
+      margin-top: 48px;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .section-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .section-link:hover { opacity: 0.7; }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .course-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #eee;
+    }
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+    .course-thumb {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+    .course-info {
+      padding: 16px 18px 18px;
+    }
+    .course-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .course-instructor {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+    .course-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .course-duration {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #999;
+    }
+    .course-duration svg {
+      width: 14px;
+      height: 14px;
+      color: #bbb;
+    }
+    .course-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #4f46e5;
+    }
+    .course-price.free {
+      color: #10b981;
+    }
+    .section-categories {
+      margin-top: 56px;
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+    .category-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 28px 16px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      border-color: #4f46e5;
+    }
+    .category-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .category-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    .category-count {
+      font-size: 11px;
+      color: #999;
+    }
+    .section-stats {
+      margin-top: 56px;
+      margin-bottom: 56px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #312e81 100%);
+      border-radius: 16px;
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .stats-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    .stats-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 420px;
+    }
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      background: #fff;
+      color: #1a1a2e;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-light:hover { background: #f0f0f0; transform: translateY(-1px); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer {
+      border-top: 1px solid #e8e8e8;
+      background: #fff;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    .footer-brand span { color: #4f46e5; }
+    .footer-copy {
+      font-size: 12px;
+      color: #999;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: #777;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #1a1a2e; }
+    @media (max-width: 1024px) {
+      .courses-grid { grid-template-columns: repeat(2, 1fr); }
+      .categories-grid { grid-template-columns: repeat(3, 1fr); }
+      .section-stats { grid-template-columns: 1fr; }
+      .hero-title { font-size: 36px; }
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .navbar-links { display: none; }
+      .search-box { width: 180px; }
+      .main-content { padding: 20px 16px 0; }
+      .hero { height: 360px; }
+      .hero-content { padding: 36px 28px; }
+      .hero-title { font-size: 28px; }
+      .hero-desc { font-size: 14px; }
+      .hero-actions { flex-direction: column; gap: 12px; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-stats { padding: 32px 24px; }
+      .stats-title { font-size: 24px; }
+      .footer { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="/" class="navbar-logo">GIVEHADA <span>Academy</span></a>
+      <ul class="navbar-links">
+        <li><a href="/" class="active">Trang chu</a></li>
+        <li><a href="#courses">Khoa hoc</a></li>
+        <li><a href="#categories">Danh muc</a></li>
+        <li><a href="#stats">Ve chung toi</a></li>
+      </ul>
+    </div>
+    <div class="navbar-right">
+      <div class="search-box">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        <input type="text" placeholder="Tim kiem khoa hoc...">
+      </div>
+      <a href="#" class="nav-icon" title="Thong bao">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+      </a>
+      <a href="#" class="nav-avatar" title="Tai khoan">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+      </a>
+    </div>
+  </nav>
+  <div class="main-content">
+    <section class="hero">
+      <img class="hero-bg" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&h=600&fit=crop&q=80" alt="Hero background">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">Khoa hoc noi bat</div>
+        <h1 class="hero-title">Cham soc da chuyen sau cung chuyen gia</h1>
+        <p class="hero-desc">
+          Hoc tu nhung chuyen gia hang dau trong nganh lam dep va cham soc da. Tu co ban den nang cao, GIVEHADA Academy dong hanh cung ban tren hanh trinh lam dep.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Bat dau hoc ngay
+          </a>
+          <a href="#" class="btn-secondary">Xem tat ca khoa hoc</a>
+        </div>
+      </div>
+    </section>
+    <section class="section-categories" id="categories">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Danh muc</div>
+          <h2 class="section-title">Linh vuc hoc tap</h2>
+        </div>
+      </div>
+      <div class="categories-grid">
+        <a href="#" class="category-card">
+          <div class="category-icon">&#x1F9F4;</div>
+          <div class="category-name">Skincare</div>
+          <div class="category-count">24 khoa hoc</div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-icon">&#x1F484;</div>
+          <div class="category-name">Makeup</div>
+          <div class="category-count">18 khoa hoc</div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-icon">&#x1F33F;</div>
+          <div class="category-name">Thanh phan</div>
+          <div class="category-count">12 khoa hoc</div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-icon">&#x1F52C;</div>
+          <div class="category-name">Khoa hoc da</div>
+          <div class="category-count">15 khoa hoc</div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-icon">&#x1F4CA;</div>
+          <div class="category-name">Kinh doanh</div>
+          <div class="category-count">10 khoa hoc</div>
+        </a>
+        <a href="#" class="category-card">
+          <div class="category-icon">&#x2728;</div>
+          <div class="category-name">Spa & Tri lieu</div>
+          <div class="category-count">8 khoa hoc</div>
+        </a>
+      </div>
+    </section>
+    <section class="section-courses" id="courses">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Khoa hoc noi bat</div>
+          <h2 class="section-title">Danh rieng cho ban</h2>
+        </div>
+        <a href="#" class="section-link">
+          Xem tat ca
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=260&fit=crop&q=80" alt="Skincare co ban">
+          <div class="course-info">
+            <div class="course-name">Skincare Co Ban A-Z</div>
+            <div class="course-instructor">Dr. Minh Anh</div>
+            <div class="course-meta">
+              <div class="course-duration">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                8 Gio 30 Phut
+              </div>
+              <div class="course-price free">Mien phi</div>
+            </div>
+          </div>
+        </div>
+        <div class="course-card">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=260&fit=crop&q=80" alt="Tri mun chuyen sau">
+          <div class="course-info">
+            <div class="course-name">Tri Mun Chuyen Sau</div>
+            <div class="course-instructor">BS. Thanh Huyen</div>
+            <div class="course-meta">
+              <div class="course-duration">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                12 Gio 15 Phut
+              </div>
+              <div class="course-price">499K</div>
+            </div>
+          </div>
+        </div>
+        <div class="course-card">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400&h=260&fit=crop&q=80" alt="Makeup Han Quoc">
+          <div class="course-info">
+            <div class="course-name">Makeup Phong Cach Han Quoc</div>
+            <div class="course-instructor">Kim Soo Yeon</div>
+            <div class="course-meta">
+              <div class="course-duration">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                6 Gio 45 Phut
+              </div>
+              <div class="course-price">399K</div>
+            </div>
+          </div>
+        </div>
+        <div class="course-card">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=260&fit=crop&q=80" alt="Thanh phan my pham">
+          <div class="course-info">
+            <div class="course-name">Doc Hieu Thanh Phan My Pham</div>
+            <div class="course-instructor">TS. Phuong Linh</div>
+            <div class="course-meta">
+              <div class="course-duration">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                10 Gio 20 Phut
+              </div>
+              <div class="course-price">599K</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-stats" id="stats">
+      <div>
+        <h2 class="stats-title">Bat dau hanh trinh lam dep chuyen nghiep.</h2>
+        <p class="stats-desc">
+          Tham gia cong dong hoc vien GIVEHADA Academy. Khoa hoc duoc thiet ke boi cac chuyen gia hang dau, giup ban tu tin cham soc da va lam dep dung cach.
+        </p>
+        <a href="#" class="btn-light">Dang ky ngay</a>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">15K+</div>
+          <div class="stat-label">Hoc vien</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">87+</div>
+          <div class="stat-label">Khoa hoc</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Hai long</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">35</div>
+          <div class="stat-label">Chuyen gia</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="footer">
+    <div class="footer-left">
+      <div class="footer-brand">GIVEHADA <span>Academy</span></div>
+      <div class="footer-copy">&copy; 2026 GIVEHADA Academy. Nen tang hoc lam dep truc tuyen.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Dieu khoan</a>
+      <a href="#">Bao mat</a>
+      <a href="#">Ho tro</a>
+      <a href="#">Lien he</a>
+    </div>
+  </footer>
+</body>
+</html>
