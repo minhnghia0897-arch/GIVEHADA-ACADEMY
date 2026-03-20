@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GIVEHADA Academy — E-Learning</title>
+  <meta name="description" content="GIVEHADA Academy — Nền tảng học chăm sóc da và làm đẹp trực tuyến hàng đầu Việt Nam. Khóa học từ các chuyên gia hàng đầu.">
+  <meta name="keywords" content="skincare, chăm sóc da, làm đẹp, makeup, khóa học online, GIVEHADA">
+  <meta name="author" content="GIVEHADA Academy">
+  <meta property="og:title" content="GIVEHADA Academy — E-Learning Làm Đẹp">
+  <meta property="og:description" content="Nền tảng học chăm sóc da và làm đẹp trực tuyến hàng đầu Việt Nam.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=630&fit=crop&q=80">
+  <meta property="og:url" content="https://givehada-academy.vn">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧴</text></svg>">
+  <title>GIVEHADA Academy — E-Learning Làm Đẹp</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -70,6 +80,10 @@
       border-radius: 8px;
       padding: 8px 16px;
       width: 240px;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within {
+      border-color: #4f46e5;
     }
     .search-box svg {
       width: 16px;
@@ -107,8 +121,75 @@
       align-items: center;
       justify-content: center;
       color: #777;
+      transition: border-color 0.2s;
     }
+    .nav-avatar:hover { border-color: #4f46e5; }
     .nav-avatar svg { width: 20px; height: 20px; }
+
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #1a1a2e;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile menu overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      z-index: 99;
+      padding: 24px;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .mobile-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-menu a {
+      font-size: 18px;
+      font-weight: 500;
+      color: #555;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: #4f46e5;
+    }
+
     .main-content {
       max-width: 1200px;
       margin: 0 auto;
@@ -252,6 +333,7 @@
       width: 100%;
       height: 170px;
       object-fit: cover;
+      background: #e8e8e8;
     }
     .course-info {
       padding: 16px 18px 18px;
@@ -390,6 +472,47 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.6);
     }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #4f46e5;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 50;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
+    }
+    .back-to-top svg { width: 20px; height: 20px; }
+
     .footer {
       border-top: 1px solid #e8e8e8;
       background: #fff;
@@ -428,6 +551,7 @@
     @media (max-width: 768px) {
       .navbar { padding: 0 20px; }
       .navbar-links { display: none; }
+      .hamburger { display: flex; }
       .search-box { width: 180px; }
       .main-content { padding: 20px 16px 0; }
       .hero { height: 360px; }
@@ -441,155 +565,179 @@
       .stats-title { font-size: 24px; }
       .footer { flex-direction: column; gap: 16px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+      .back-to-top { bottom: 20px; right: 20px; }
+    }
+    @media (max-width: 480px) {
+      .search-box { display: none; }
+      .categories-grid { grid-template-columns: 1fr 1fr; }
+      .hero { height: 320px; }
+      .hero-content { padding: 28px 20px; }
+      .hero-title { font-size: 24px; }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
+  <nav class="navbar" role="navigation" aria-label="Thanh điều hướng chính">
     <div class="navbar-left">
-      <a href="/" class="navbar-logo">GIVEHADA <span>Academy</span></a>
+      <a href="/" class="navbar-logo" aria-label="GIVEHADA Academy — Trang chủ">GIVEHADA <span>Academy</span></a>
       <ul class="navbar-links">
-        <li><a href="/" class="active">Trang chu</a></li>
-        <li><a href="#courses">Khoa hoc</a></li>
-        <li><a href="#categories">Danh muc</a></li>
-        <li><a href="#stats">Ve chung toi</a></li>
+        <li><a href="#hero" class="active">Trang chủ</a></li>
+        <li><a href="#courses">Khóa học</a></li>
+        <li><a href="#categories">Danh mục</a></li>
+        <li><a href="#stats">Về chúng tôi</a></li>
       </ul>
     </div>
     <div class="navbar-right">
-      <div class="search-box">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
-        <input type="text" placeholder="Tim kiem khoa hoc...">
-      </div>
-      <a href="#" class="nav-icon" title="Thong bao">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+      <form class="search-box" role="search" aria-label="Tìm kiếm khóa học" onsubmit="return false;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        <input type="search" placeholder="Tìm kiếm khóa học..." aria-label="Tìm kiếm khóa học">
+      </form>
+      <a href="#" class="nav-icon" aria-label="Thông báo">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
       </a>
-      <a href="#" class="nav-avatar" title="Tai khoan">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+      <a href="#" class="nav-avatar" aria-label="Tài khoản">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
       </a>
+      <button class="hamburger" aria-label="Mở menu" aria-expanded="false" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menu di động">
+    <a href="#hero" class="active" onclick="closeMobileMenu()">Trang chủ</a>
+    <a href="#courses" onclick="closeMobileMenu()">Khóa học</a>
+    <a href="#categories" onclick="closeMobileMenu()">Danh mục</a>
+    <a href="#stats" onclick="closeMobileMenu()">Về chúng tôi</a>
+  </div>
+
   <div class="main-content">
-    <section class="hero">
-      <img class="hero-bg" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&h=600&fit=crop&q=80" alt="Hero background">
+    <section class="hero" id="hero">
+      <img class="hero-bg" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&h=600&fit=crop&q=80" alt="Nhóm học viên đang học tập và trao đổi cùng nhau" loading="eager">
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-label">Khoa hoc noi bat</div>
-        <h1 class="hero-title">Cham soc da chuyen sau cung chuyen gia</h1>
+        <div class="hero-label">Khóa học nổi bật</div>
+        <h1 class="hero-title">Chăm sóc da chuyên sâu cùng chuyên gia</h1>
         <p class="hero-desc">
-          Hoc tu nhung chuyen gia hang dau trong nganh lam dep va cham soc da. Tu co ban den nang cao, GIVEHADA Academy dong hanh cung ban tren hanh trinh lam dep.
+          Học từ những chuyên gia hàng đầu trong ngành làm đẹp và chăm sóc da. Từ cơ bản đến nâng cao, GIVEHADA Academy đồng hành cùng bạn trên hành trình làm đẹp.
         </p>
         <div class="hero-actions">
-          <a href="#" class="btn-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            Bat dau hoc ngay
+          <a href="#courses" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Bắt đầu học ngay
           </a>
-          <a href="#" class="btn-secondary">Xem tat ca khoa hoc</a>
+          <a href="#courses" class="btn-secondary">Xem tất cả khóa học</a>
         </div>
       </div>
     </section>
-    <section class="section-categories" id="categories">
+
+    <section class="section-categories fade-in" id="categories">
       <div class="section-header">
         <div>
-          <div class="section-label">Danh muc</div>
-          <h2 class="section-title">Linh vuc hoc tap</h2>
+          <div class="section-label">Danh mục</div>
+          <h2 class="section-title">Lĩnh vực học tập</h2>
         </div>
       </div>
       <div class="categories-grid">
-        <a href="#" class="category-card">
-          <div class="category-icon">&#x1F9F4;</div>
+        <a href="#courses" class="category-card">
+          <div class="category-icon" aria-hidden="true">&#x1F9F4;</div>
           <div class="category-name">Skincare</div>
-          <div class="category-count">24 khoa hoc</div>
+          <div class="category-count">24 khóa học</div>
         </a>
-        <a href="#" class="category-card">
-          <div class="category-icon">&#x1F484;</div>
+        <a href="#courses" class="category-card">
+          <div class="category-icon" aria-hidden="true">&#x1F484;</div>
           <div class="category-name">Makeup</div>
-          <div class="category-count">18 khoa hoc</div>
+          <div class="category-count">18 khóa học</div>
         </a>
-        <a href="#" class="category-card">
-          <div class="category-icon">&#x1F33F;</div>
-          <div class="category-name">Thanh phan</div>
-          <div class="category-count">12 khoa hoc</div>
+        <a href="#courses" class="category-card">
+          <div class="category-icon" aria-hidden="true">&#x1F33F;</div>
+          <div class="category-name">Thành phần</div>
+          <div class="category-count">12 khóa học</div>
         </a>
-        <a href="#" class="category-card">
-          <div class="category-icon">&#x1F52C;</div>
-          <div class="category-name">Khoa hoc da</div>
-          <div class="category-count">15 khoa hoc</div>
+        <a href="#courses" class="category-card">
+          <div class="category-icon" aria-hidden="true">&#x1F52C;</div>
+          <div class="category-name">Khoa học da</div>
+          <div class="category-count">15 khóa học</div>
         </a>
-        <a href="#" class="category-card">
-          <div class="category-icon">&#x1F4CA;</div>
+        <a href="#courses" class="category-card">
+          <div class="category-icon" aria-hidden="true">&#x1F4CA;</div>
           <div class="category-name">Kinh doanh</div>
-          <div class="category-count">10 khoa hoc</div>
+          <div class="category-count">10 khóa học</div>
         </a>
-        <a href="#" class="category-card">
-          <div class="category-icon">&#x2728;</div>
-          <div class="category-name">Spa & Tri lieu</div>
-          <div class="category-count">8 khoa hoc</div>
+        <a href="#courses" class="category-card">
+          <div class="category-icon" aria-hidden="true">&#x2728;</div>
+          <div class="category-name">Spa &amp; Trị liệu</div>
+          <div class="category-count">8 khóa học</div>
         </a>
       </div>
     </section>
-    <section class="section-courses" id="courses">
+
+    <section class="section-courses fade-in" id="courses">
       <div class="section-header">
         <div>
-          <div class="section-label">Khoa hoc noi bat</div>
-          <h2 class="section-title">Danh rieng cho ban</h2>
+          <div class="section-label">Khóa học nổi bật</div>
+          <h2 class="section-title">Dành riêng cho bạn</h2>
         </div>
-        <a href="#" class="section-link">
-          Xem tat ca
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        <a href="#courses" class="section-link">
+          Xem tất cả
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </a>
       </div>
       <div class="courses-grid">
         <div class="course-card">
-          <img class="course-thumb" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=260&fit=crop&q=80" alt="Skincare co ban">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=260&fit=crop&q=80" alt="Các sản phẩm skincare cơ bản được sắp xếp gọn gàng" loading="lazy">
           <div class="course-info">
-            <div class="course-name">Skincare Co Ban A-Z</div>
+            <div class="course-name">Skincare Cơ Bản A-Z</div>
             <div class="course-instructor">Dr. Minh Anh</div>
             <div class="course-meta">
               <div class="course-duration">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                8 Gio 30 Phut
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                8 Giờ 30 Phút
               </div>
-              <div class="course-price free">Mien phi</div>
+              <div class="course-price free">Miễn phí</div>
             </div>
           </div>
         </div>
         <div class="course-card">
-          <img class="course-thumb" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=260&fit=crop&q=80" alt="Tri mun chuyen sau">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=260&fit=crop&q=80" alt="Quy trình trị mụn chuyên sâu với các sản phẩm chuyên dụng" loading="lazy">
           <div class="course-info">
-            <div class="course-name">Tri Mun Chuyen Sau</div>
-            <div class="course-instructor">BS. Thanh Huyen</div>
+            <div class="course-name">Trị Mụn Chuyên Sâu</div>
+            <div class="course-instructor">BS. Thanh Huyền</div>
             <div class="course-meta">
               <div class="course-duration">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                12 Gio 15 Phut
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                12 Giờ 15 Phút
               </div>
               <div class="course-price">499K</div>
             </div>
           </div>
         </div>
         <div class="course-card">
-          <img class="course-thumb" src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400&h=260&fit=crop&q=80" alt="Makeup Han Quoc">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400&h=260&fit=crop&q=80" alt="Trang điểm phong cách Hàn Quốc tự nhiên" loading="lazy">
           <div class="course-info">
-            <div class="course-name">Makeup Phong Cach Han Quoc</div>
+            <div class="course-name">Makeup Phong Cách Hàn Quốc</div>
             <div class="course-instructor">Kim Soo Yeon</div>
             <div class="course-meta">
               <div class="course-duration">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                6 Gio 45 Phut
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                6 Giờ 45 Phút
               </div>
               <div class="course-price">399K</div>
             </div>
           </div>
         </div>
         <div class="course-card">
-          <img class="course-thumb" src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=260&fit=crop&q=80" alt="Thanh phan my pham">
+          <img class="course-thumb" src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=260&fit=crop&q=80" alt="Phân tích thành phần mỹ phẩm trong phòng thí nghiệm" loading="lazy">
           <div class="course-info">
-            <div class="course-name">Doc Hieu Thanh Phan My Pham</div>
-            <div class="course-instructor">TS. Phuong Linh</div>
+            <div class="course-name">Đọc Hiểu Thành Phần Mỹ Phẩm</div>
+            <div class="course-instructor">TS. Phương Linh</div>
             <div class="course-meta">
               <div class="course-duration">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                10 Gio 20 Phut
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                10 Giờ 20 Phút
               </div>
               <div class="course-price">599K</div>
             </div>
@@ -597,45 +745,116 @@
         </div>
       </div>
     </section>
-    <section class="section-stats" id="stats">
+
+    <section class="section-stats fade-in" id="stats">
       <div>
-        <h2 class="stats-title">Bat dau hanh trinh lam dep chuyen nghiep.</h2>
+        <h2 class="stats-title">Bắt đầu hành trình làm đẹp chuyên nghiệp.</h2>
         <p class="stats-desc">
-          Tham gia cong dong hoc vien GIVEHADA Academy. Khoa hoc duoc thiet ke boi cac chuyen gia hang dau, giup ban tu tin cham soc da va lam dep dung cach.
+          Tham gia cộng đồng học viên GIVEHADA Academy. Khóa học được thiết kế bởi các chuyên gia hàng đầu, giúp bạn tự tin chăm sóc da và làm đẹp đúng cách.
         </p>
-        <a href="#" class="btn-light">Dang ky ngay</a>
+        <a href="#courses" class="btn-light">Đăng ký ngay</a>
       </div>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-number">15K+</div>
-          <div class="stat-label">Hoc vien</div>
+          <div class="stat-label">Học viên</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">87+</div>
-          <div class="stat-label">Khoa hoc</div>
+          <div class="stat-label">Khóa học</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">98%</div>
-          <div class="stat-label">Hai long</div>
+          <div class="stat-label">Hài lòng</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">35</div>
-          <div class="stat-label">Chuyen gia</div>
+          <div class="stat-label">Chuyên gia</div>
         </div>
       </div>
     </section>
   </div>
-  <footer class="footer">
+
+  <footer class="footer" role="contentinfo">
     <div class="footer-left">
       <div class="footer-brand">GIVEHADA <span>Academy</span></div>
-      <div class="footer-copy">&copy; 2026 GIVEHADA Academy. Nen tang hoc lam dep truc tuyen.</div>
+      <div class="footer-copy">&copy; 2026 GIVEHADA Academy. Nền tảng học làm đẹp trực tuyến.</div>
     </div>
-    <div class="footer-links">
-      <a href="#">Dieu khoan</a>
-      <a href="#">Bao mat</a>
-      <a href="#">Ho tro</a>
-      <a href="#">Lien he</a>
-    </div>
+    <nav class="footer-links" aria-label="Liên kết footer">
+      <a href="#">Điều khoản</a>
+      <a href="#">Bảo mật</a>
+      <a href="#">Hỗ trợ</a>
+      <a href="#">Liên hệ</a>
+    </nav>
   </footer>
+
+  <!-- Back to top button -->
+  <a href="#hero" class="back-to-top" id="backToTop" aria-label="Quay lại đầu trang">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
+  </a>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      var menu = document.getElementById('mobileMenu');
+      var btn = document.querySelector('.hamburger');
+      var isOpen = menu.classList.contains('active');
+      menu.classList.toggle('active');
+      btn.classList.toggle('active');
+      btn.setAttribute('aria-expanded', !isOpen);
+      btn.setAttribute('aria-label', isOpen ? 'Mở menu' : 'Đóng menu');
+    }
+
+    function closeMobileMenu() {
+      var menu = document.getElementById('mobileMenu');
+      var btn = document.querySelector('.hamburger');
+      menu.classList.remove('active');
+      btn.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Mở menu');
+    }
+
+    // Back to top button visibility
+    var backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    // Scroll fade-in animations
+    var fadeElements = document.querySelectorAll('.fade-in');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Active nav link on scroll
+    var sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', function() {
+      var scrollY = window.scrollY + 100;
+      sections.forEach(function(section) {
+        var top = section.offsetTop;
+        var height = section.offsetHeight;
+        var id = section.getAttribute('id');
+        var links = document.querySelectorAll('.navbar-links a, .mobile-menu a');
+        links.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id && scrollY >= top && scrollY < top + height) {
+            link.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
