@@ -40,7 +40,7 @@
       pointer-events: none;
       z-index: 0;
     }
-    body > * {
+    body > *:not(.navbar):not(.mobile-menu) {
       position: relative;
       z-index: 1;
     }
@@ -64,7 +64,7 @@
       top: 0;
       left: 0;
       right: 0;
-      z-index: 100;
+      z-index: 9999;
     }
     .navbar-left {
       display: flex;
@@ -165,7 +165,7 @@
       right: 0;
       bottom: 0;
       background: #0a0e27;
-      z-index: 99;
+      z-index: 9998;
       padding: 24px;
       flex-direction: column;
       gap: 8px;
