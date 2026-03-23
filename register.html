@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - GIVEHADA Academy</title>
+    <title>Tạo tài khoản - GIVEHADA Academy</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             padding: 40px 20px;
         }
 
-        .login-container {
+        .register-container {
             width: 100%;
             max-width: 480px;
             display: flex;
@@ -59,7 +59,7 @@
             margin-bottom: 32px;
         }
 
-        .login-card {
+        .register-card {
             width: 100%;
             background: #ffffff;
             border-radius: 16px;
@@ -82,17 +82,6 @@
             font-size: 14px;
             font-weight: 600;
             color: #1a1a2e;
-        }
-
-        .forgot-link {
-            font-size: 13px;
-            color: #4f46e5;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .forgot-link:hover {
-            text-decoration: underline;
         }
 
         .form-input {
@@ -118,7 +107,55 @@
             background: #fff;
         }
 
-        .btn-login {
+        .name-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .name-row .form-group {
+            flex: 1;
+        }
+
+        .password-hint {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .terms-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: #4f46e5;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .terms-group label {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .terms-group label a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-group label a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-register {
             width: 100%;
             height: 52px;
             background: #1a1a2e;
@@ -129,15 +166,14 @@
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
-            margin-top: 8px;
             transition: background 0.2s, transform 0.1s;
         }
 
-        .btn-login:hover {
+        .btn-register:hover {
             background: #2a2a42;
         }
 
-        .btn-login:active {
+        .btn-register:active {
             transform: scale(0.99);
         }
 
@@ -196,19 +232,19 @@
             flex-shrink: 0;
         }
 
-        .signup-prompt {
+        .login-prompt {
             margin-top: 28px;
             font-size: 14px;
             color: #6b7280;
         }
 
-        .signup-prompt a {
+        .login-prompt a {
             color: #4f46e5;
             text-decoration: none;
             font-weight: 600;
         }
 
-        .signup-prompt a:hover {
+        .login-prompt a:hover {
             text-decoration: underline;
         }
 
@@ -242,12 +278,17 @@
         }
 
         @media (max-width: 520px) {
-            .login-card {
+            .register-card {
                 padding: 28px 20px;
             }
 
             .brand-name {
                 font-size: 24px;
+            }
+
+            .name-row {
+                flex-direction: column;
+                gap: 0;
             }
 
             .social-buttons {
@@ -257,7 +298,7 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="register-container">
         <div class="logo-icon">
             <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 3L17.5 11.5L26 9L19.5 15L26 21L17.5 18.5L15 27L12.5 18.5L4 21L10.5 15L4 9L12.5 11.5L15 3Z" fill="white"/>
@@ -266,10 +307,25 @@
         </div>
 
         <h1 class="brand-name">GIVEHADA Academy</h1>
-        <p class="subtitle">Chào mừng bạn đến với GIVEHADA Academy</p>
+        <p class="subtitle">Tạo tài khoản để bắt đầu học</p>
 
-        <div class="login-card">
-            <form id="loginForm" novalidate>
+        <div class="register-card">
+            <form id="registerForm" novalidate>
+                <div class="name-row">
+                    <div class="form-group">
+                        <div class="form-label-row">
+                            <label class="form-label" for="lastName">Họ</label>
+                        </div>
+                        <input type="text" id="lastName" class="form-input" placeholder="Nguyễn" autocomplete="family-name">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-row">
+                            <label class="form-label" for="firstName">Tên</label>
+                        </div>
+                        <input type="text" id="firstName" class="form-input" placeholder="Văn A" autocomplete="given-name">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="form-label-row">
                         <label class="form-label" for="email">Địa chỉ Email</label>
@@ -279,18 +335,37 @@
 
                 <div class="form-group">
                     <div class="form-label-row">
-                        <label class="form-label" for="password">Mật khẩu</label>
-                        <a href="#" class="forgot-link">Quên mật khẩu?</a>
+                        <label class="form-label" for="phone">Số điện thoại</label>
                     </div>
-                    <input type="password" id="password" class="form-input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="current-password">
+                    <input type="tel" id="phone" class="form-input" placeholder="0901 234 567" autocomplete="tel">
                 </div>
 
-                <button type="submit" class="btn-login">Đăng nhập</button>
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label class="form-label" for="password">Mật khẩu</label>
+                    </div>
+                    <input type="password" id="password" class="form-input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="new-password">
+                    <p class="password-hint">Tối thiểu 8 ký tự, bao gồm chữ hoa, chữ thường và số</p>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
+                    </div>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="new-password">
+                </div>
+
+                <div class="terms-group">
+                    <input type="checkbox" id="terms">
+                    <label for="terms">Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a> của GIVEHADA Academy</label>
+                </div>
+
+                <button type="submit" class="btn-register">Tạo tài khoản</button>
             </form>
 
             <div class="divider">
                 <div class="divider-line"></div>
-                <span class="divider-text">Hoặc tiếp tục với</span>
+                <span class="divider-text">Hoặc đăng ký với</span>
                 <div class="divider-line"></div>
             </div>
 
@@ -313,7 +388,7 @@
             </div>
         </div>
 
-        <p class="signup-prompt">Mới đến Học viện? <a href="register.html">Tạo tài khoản</a></p>
+        <p class="login-prompt">Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
 
         <div class="footer">
             <div class="footer-links">
@@ -326,14 +401,19 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            var lastName = document.getElementById('lastName').value.trim();
+            var firstName = document.getElementById('firstName').value.trim();
             var email = document.getElementById('email').value.trim();
-            var password = document.getElementById('password').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var terms = document.getElementById('terms').checked;
 
-            if (!email && !password) {
-                alert('Vui lòng nhập địa chỉ email và mật khẩu.');
+            if (!lastName || !firstName) {
+                alert('Vui lòng nhập họ và tên.');
                 return;
             }
 
@@ -342,12 +422,45 @@
                 return;
             }
 
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Địa chỉ email không hợp lệ.');
+                return;
+            }
+
+            if (!phone) {
+                alert('Vui lòng nhập số điện thoại.');
+                return;
+            }
+
             if (!password) {
                 alert('Vui lòng nhập mật khẩu.');
                 return;
             }
 
-            window.location.href = 'index.html';
+            if (password.length < 8) {
+                alert('Mật khẩu phải có ít nhất 8 ký tự.');
+                return;
+            }
+
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert('Mật khẩu phải bao gồm chữ hoa, chữ thường và số.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Mật khẩu xác nhận không khớp.');
+                return;
+            }
+
+            if (!terms) {
+                alert('Vui lòng đồng ý với Điều khoản dịch vụ và Chính sách bảo mật.');
+                return;
+            }
+
+            alert('Đăng ký thành công! Chào mừng bạn đến với GIVEHADA Academy.');
+            window.location.href = 'login.html';
         });
     </script>
 </body>
