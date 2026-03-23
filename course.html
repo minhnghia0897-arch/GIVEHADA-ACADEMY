@@ -11,24 +11,39 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-      color: #1a1a2e;
-      background: #f5f5f5;
+      color: #e0e4ef;
+      background: #060a18;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      position: relative;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 140% 70% at 50% 105%, rgba(25, 55, 160, 0.5) 0%, rgba(20, 50, 150, 0.25) 25%, rgba(15, 40, 130, 0.08) 50%, transparent 75%),
+        radial-gradient(ellipse 90% 60% at 15% 55%, rgba(30, 64, 175, 0.1) 0%, rgba(25, 55, 160, 0.03) 40%, transparent 70%),
+        radial-gradient(ellipse 90% 60% at 85% 35%, rgba(37, 80, 200, 0.07) 0%, rgba(30, 65, 175, 0.02) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; border: none; font-family: inherit; }
     img { display: block; max-width: 100%; }
 
-    /* ===== NAVBAR ===== */
+    /* ===== NAVBAR — dark glassmorphism ===== */
     .navbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 48px;
       height: 64px;
-      background: #fff;
-      border-bottom: 1px solid #e8e8e8;
+      background: rgba(8, 12, 30, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -41,10 +56,10 @@
     .navbar-logo {
       font-size: 18px;
       font-weight: 700;
-      color: #1a1a2e;
+      color: #fff;
       white-space: nowrap;
     }
-    .navbar-logo span { color: #4f46e5; }
+    .navbar-logo span { color: #3b82f6; }
     .navbar-links {
       display: flex;
       gap: 28px;
@@ -53,11 +68,11 @@
     .navbar-links a {
       font-size: 14px;
       font-weight: 500;
-      color: #555;
+      color: rgba(255,255,255,0.5);
       transition: color 0.2s;
     }
     .navbar-links a:hover,
-    .navbar-links a.active { color: #1a1a2e; }
+    .navbar-links a.active { color: #fff; }
     .navbar-right {
       display: flex;
       align-items: center;
@@ -67,34 +82,34 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #f5f5f5;
-      border: 1px solid #e0e0e0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px;
       padding: 8px 16px;
       width: 240px;
       transition: border-color 0.2s;
     }
-    .search-box:focus-within { border-color: #4f46e5; }
-    .search-box svg { width: 16px; height: 16px; color: #999; flex-shrink: 0; }
+    .search-box:focus-within { border-color: #3b82f6; }
+    .search-box svg { width: 16px; height: 16px; color: rgba(255,255,255,0.35); flex-shrink: 0; }
     .search-box input {
       border: none; background: transparent; outline: none;
-      font-size: 13px; color: #666; width: 100%;
+      font-size: 13px; color: rgba(255,255,255,0.8); width: 100%;
     }
-    .search-box input::placeholder { color: #aaa; }
+    .search-box input::placeholder { color: rgba(255,255,255,0.3); }
     .nav-icon {
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: 50%; transition: background 0.2s; color: #555;
+      border-radius: 50%; transition: background 0.2s; color: rgba(255,255,255,0.5);
     }
-    .nav-icon:hover { background: #f0f0f0; }
+    .nav-icon:hover { background: rgba(255,255,255,0.08); }
     .nav-icon svg { width: 20px; height: 20px; }
     .nav-avatar {
       width: 34px; height: 34px; border-radius: 50%;
-      border: 2px solid #e0e0e0;
-      display: flex; align-items: center; justify-content: center; color: #777;
+      border: 2px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);
       transition: border-color 0.2s;
     }
-    .nav-avatar:hover { border-color: #4f46e5; }
+    .nav-avatar:hover { border-color: #3b82f6; }
     .nav-avatar svg { width: 20px; height: 20px; }
     .hamburger {
       display: none; flex-direction: column; justify-content: center;
@@ -102,23 +117,23 @@
     }
     .hamburger span {
       display: block; width: 100%; height: 2px;
-      background: #1a1a2e; border-radius: 2px; transition: all 0.3s;
+      background: #fff; border-radius: 2px; transition: all 0.3s;
     }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
     .mobile-menu {
       display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-      background: #fff; z-index: 99; padding: 24px;
+      background: #0a0e20; z-index: 99; padding: 24px;
       flex-direction: column; gap: 8px;
       opacity: 0; transform: translateY(-10px); transition: opacity 0.3s, transform 0.3s;
     }
     .mobile-menu.active { display: flex; opacity: 1; transform: translateY(0); }
     .mobile-menu a {
-      font-size: 18px; font-weight: 500; color: #555;
-      padding: 14px 0; border-bottom: 1px solid #f0f0f0; transition: color 0.2s;
+      font-size: 18px; font-weight: 500; color: rgba(255,255,255,0.5);
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s;
     }
-    .mobile-menu a:hover { color: #4f46e5; }
+    .mobile-menu a:hover { color: #fff; }
 
     /* ===== MAIN COURSE LAYOUT ===== */
     .course-page {
@@ -252,14 +267,14 @@
       font-weight: 600;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #888;
+      color: rgba(255,255,255,0.4);
       margin-top: 28px;
       margin-bottom: 12px;
     }
     .course-title {
       font-size: 32px;
       font-weight: 700;
-      color: #1a1a2e;
+      color: #fff;
       line-height: 1.25;
       margin-bottom: 24px;
     }
@@ -279,11 +294,11 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #e0e0e0;
+      background: rgba(255,255,255,0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #999;
+      color: rgba(255,255,255,0.4);
       overflow: hidden;
     }
     .instructor-avatar img {
@@ -298,17 +313,17 @@
     .instructor-name {
       font-size: 15px;
       font-weight: 600;
-      color: #1a1a2e;
+      color: #fff;
     }
     .instructor-role {
       font-size: 13px;
-      color: #888;
+      color: rgba(255,255,255,0.4);
     }
     .btn-enroll {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #1a1a2e;
+      background: #2563eb;
       color: #fff;
       padding: 16px 36px;
       border-radius: 12px;
@@ -316,14 +331,15 @@
       font-weight: 600;
       transition: all 0.2s;
       white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
     }
     .btn-enroll:hover {
-      background: #2d2d4e;
+      background: #1d4ed8;
       transform: translateY(-1px);
     }
     .course-description {
       font-size: 15px;
-      color: #555;
+      color: rgba(255,255,255,0.5);
       line-height: 1.8;
       max-width: 620px;
     }
@@ -343,21 +359,21 @@
       border-radius: 10px;
       font-size: 14px;
       font-weight: 500;
-      background: #fff;
-      color: #555;
-      border: 1px solid #e0e0e0;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
       transition: all 0.2s;
       cursor: pointer;
     }
     .action-btn:hover {
-      border-color: #4f46e5;
-      color: #4f46e5;
-      background: #f8f7ff;
+      border-color: #3b82f6;
+      color: #3b82f6;
+      background: rgba(59, 130, 246, 0.08);
     }
     .action-btn.saved {
       border-color: #ef4444;
       color: #ef4444;
-      background: #fef2f2;
+      background: rgba(239, 68, 68, 0.1);
     }
     .action-btn svg { width: 18px; height: 18px; }
 
@@ -365,14 +381,14 @@
     .attachments {
       margin-top: 28px;
       padding-top: 24px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
     .attachments-label {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #1a1a2e;
+      color: #fff;
       margin-bottom: 16px;
     }
     .attachment-item {
@@ -380,8 +396,8 @@
       align-items: center;
       gap: 14px;
       padding: 14px 18px;
-      background: #fff;
-      border: 1px solid #eee;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 12px;
       margin-bottom: 8px;
       transition: all 0.2s;
@@ -390,8 +406,8 @@
       color: inherit;
     }
     .attachment-item:hover {
-      border-color: #4f46e5;
-      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.08);
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       transform: translateY(-1px);
     }
     .attachment-icon {
@@ -403,38 +419,38 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .attachment-icon.pdf { background: #fef2f2; color: #ef4444; }
-    .attachment-icon.doc { background: #eff6ff; color: #3b82f6; }
-    .attachment-icon.img { background: #f0fdf4; color: #22c55e; }
+    .attachment-icon.pdf { background: rgba(239, 68, 68, 0.12); color: #f87171; }
+    .attachment-icon.doc { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
+    .attachment-icon.img { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
     .attachment-icon svg { width: 20px; height: 20px; }
     .attachment-info { flex: 1; min-width: 0; }
     .attachment-name {
       font-size: 14px;
       font-weight: 600;
-      color: #1a1a2e;
+      color: #fff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .attachment-meta {
       font-size: 12px;
-      color: #999;
+      color: rgba(255,255,255,0.35);
       margin-top: 2px;
     }
     .attachment-download {
       width: 36px;
       height: 36px;
       border-radius: 8px;
-      background: #f5f5f5;
+      background: rgba(255,255,255,0.06);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: #888;
+      color: rgba(255,255,255,0.4);
       transition: all 0.2s;
     }
     .attachment-item:hover .attachment-download {
-      background: #4f46e5;
+      background: #2563eb;
       color: #fff;
     }
     .attachment-download svg { width: 16px; height: 16px; }
@@ -447,48 +463,63 @@
       font-weight: 700;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #1a1a2e;
+      color: #fff;
       margin-bottom: 20px;
     }
 
-    /* Curriculum accordion */
+    /* Curriculum accordion — dark cards like reference */
     .curriculum {
       margin-bottom: 48px;
     }
     .module {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      margin-bottom: 8px;
+      background: #111318;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      margin-bottom: 10px;
       overflow: hidden;
     }
     .module-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      padding: 18px 22px;
+      padding: 22px 24px;
       cursor: pointer;
       transition: background 0.2s;
-      background: #fff;
+      background: transparent;
       user-select: none;
     }
     .module-header:hover {
-      background: #fafafa;
+      background: rgba(255,255,255,0.03);
+    }
+    .module-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
     .module-header-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1a1a2e;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .module-header-meta {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
     }
     .module-header svg {
-      width: 18px;
-      height: 18px;
-      color: #999;
+      width: 20px;
+      height: 20px;
+      color: rgba(255,255,255,0.3);
       transition: transform 0.3s;
       flex-shrink: 0;
+      margin-top: 4px;
     }
     .module.active .module-header svg {
-      transform: rotate(90deg);
+      transform: rotate(45deg);
+    }
+    .module-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+      margin: 0 24px;
     }
     .module-content {
       max-height: 0;
@@ -496,47 +527,63 @@
       transition: max-height 0.3s ease;
     }
     .module.active .module-content {
-      max-height: 400px;
+      max-height: 600px;
     }
     .lesson {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px 22px;
+      gap: 16px;
+      padding: 18px 24px;
       font-size: 14px;
-      color: #555;
+      color: rgba(255,255,255,0.6);
       cursor: pointer;
       transition: background 0.2s;
-      border-top: 1px solid #f5f5f5;
+      border-top: none;
     }
     .lesson:hover {
-      background: #f9f9fb;
+      background: rgba(255,255,255,0.03);
     }
     .lesson.active {
-      background: #f0f0f8;
-      color: #1a1a2e;
+      background: rgba(59, 130, 246, 0.06);
+      color: #fff;
       font-weight: 500;
     }
     .lesson-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: #f0f0f0;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
     .lesson.active .lesson-icon {
-      background: #e8e7f5;
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
     }
     .lesson-icon svg {
-      width: 14px;
-      height: 14px;
-      color: #888;
+      width: 16px;
+      height: 16px;
+      color: rgba(255,255,255,0.4);
     }
     .lesson.active .lesson-icon svg {
-      color: #4f46e5;
+      color: #3b82f6;
+    }
+    .lesson-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .lesson-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: inherit;
+    }
+    .lesson-duration {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
     }
 
     /* Related courses */
@@ -546,7 +593,7 @@
       align-items: center;
       gap: 16px;
       padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: opacity 0.2s;
     }
     .related-card:last-child {
@@ -560,26 +607,28 @@
       height: 64px;
       border-radius: 8px;
       object-fit: cover;
-      background: #e8e8e8;
+      background: #1a2040;
       flex-shrink: 0;
     }
     .related-info {}
     .related-name {
       font-size: 14px;
       font-weight: 600;
-      color: #1a1a2e;
+      color: #fff;
       line-height: 1.4;
       margin-bottom: 4px;
     }
     .related-instructor {
       font-size: 12px;
-      color: #999;
+      color: rgba(255,255,255,0.35);
     }
 
     /* ===== FOOTER ===== */
     .footer {
-      border-top: 1px solid #e8e8e8;
-      background: #fff;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(6, 10, 24, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       padding: 28px 48px;
       display: flex;
       align-items: center;
@@ -589,13 +638,13 @@
     .footer-brand {
       font-size: 16px;
       font-weight: 700;
-      color: #1a1a2e;
+      color: #fff;
       margin-bottom: 4px;
     }
-    .footer-brand span { color: #4f46e5; }
+    .footer-brand span { color: #3b82f6; }
     .footer-copy {
       font-size: 12px;
-      color: #999;
+      color: rgba(255,255,255,0.35);
     }
     .footer-links {
       display: flex;
@@ -603,10 +652,10 @@
     }
     .footer-links a {
       font-size: 13px;
-      color: #777;
+      color: rgba(255,255,255,0.45);
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: #1a1a2e; }
+    .footer-links a:hover { color: #fff; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
@@ -790,27 +839,40 @@
         <!-- Module 1 - expanded -->
         <div class="module active" data-module="1">
           <div class="module-header" onclick="toggleModule(this)">
-            <span class="module-header-title">Học phần 01: Nền tảng</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            <div class="module-header-left">
+              <span class="module-header-title">Học phần 01: Nền tảng</span>
+              <span class="module-header-meta">3 Bài học · 5 Tài liệu · 2.5 Giờ</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
           </div>
+          <div class="module-divider"></div>
           <div class="module-content">
             <div class="lesson active">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Nhận biết loại da và cách chăm sóc
+              <div class="lesson-info">
+                <span class="lesson-name">Nhận biết loại da và cách chăm sóc</span>
+                <span class="lesson-duration">01:03:00</span>
+              </div>
             </div>
             <div class="lesson">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Quy trình skincare cơ bản
+              <div class="lesson-info">
+                <span class="lesson-name">Quy trình skincare cơ bản</span>
+                <span class="lesson-duration">01:01:00</span>
+              </div>
             </div>
             <div class="lesson">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-6A2.25 2.25 0 019.75 18v-2.25"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Bài đọc: Nhập môn thành phần mỹ phẩm
+              <div class="lesson-info">
+                <span class="lesson-name">Nhập môn thành phần mỹ phẩm</span>
+                <span class="lesson-duration">01:03:00</span>
+              </div>
             </div>
           </div>
         </div>
@@ -818,21 +880,31 @@
         <!-- Module 2 - collapsed -->
         <div class="module" data-module="2">
           <div class="module-header" onclick="toggleModule(this)">
-            <span class="module-header-title">Học phần 02: Thực hành</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            <div class="module-header-left">
+              <span class="module-header-title">Học phần 02: Thực hành</span>
+              <span class="module-header-meta">2 Bài học · 8 Tài liệu · 3 Giờ</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
           </div>
+          <div class="module-divider"></div>
           <div class="module-content">
             <div class="lesson">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Xây dựng routine sáng - tối
+              <div class="lesson-info">
+                <span class="lesson-name">Xây dựng routine sáng - tối</span>
+                <span class="lesson-duration">01:03:00</span>
+              </div>
             </div>
             <div class="lesson">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Cách dùng serum và acid đúng cách
+              <div class="lesson-info">
+                <span class="lesson-name">Cách dùng serum và acid đúng cách</span>
+                <span class="lesson-duration">01:01:00</span>
+              </div>
             </div>
           </div>
         </div>
@@ -840,21 +912,31 @@
         <!-- Module 3 - collapsed -->
         <div class="module" data-module="3">
           <div class="module-header" onclick="toggleModule(this)">
-            <span class="module-header-title">Học phần 03: Nâng cao</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            <div class="module-header-left">
+              <span class="module-header-title">Học phần 03: Nâng cao</span>
+              <span class="module-header-meta">2 Bài học · 6 Tài liệu · 2 Giờ</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
           </div>
+          <div class="module-divider"></div>
           <div class="module-content">
             <div class="lesson">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Trị mụn và phục hồi da tổn thương
+              <div class="lesson-info">
+                <span class="lesson-name">Trị mụn và phục hồi da tổn thương</span>
+                <span class="lesson-duration">01:03:00</span>
+              </div>
             </div>
             <div class="lesson">
               <div class="lesson-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>
               </div>
-              Chống lão hóa từ tuổi 25
+              <div class="lesson-info">
+                <span class="lesson-name">Chống lão hóa từ tuổi 25</span>
+                <span class="lesson-duration">01:03:00</span>
+              </div>
             </div>
           </div>
         </div>
@@ -921,6 +1003,12 @@
     function toggleModule(header) {
       var module = header.parentElement;
       module.classList.toggle('active');
+      var svg = header.querySelector('svg');
+      if (module.classList.contains('active')) {
+        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>';
+      } else {
+        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>';
+      }
     }
 
     // Toggle fullscreen video
