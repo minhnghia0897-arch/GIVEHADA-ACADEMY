@@ -42,7 +42,7 @@
     }
     body > *:not(.navbar):not(.mobile-menu) {
       position: relative;
-      z-index: 1;
+      z-index: 0;
     }
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; border: none; font-family: inherit; }
@@ -55,16 +55,16 @@
       justify-content: space-between;
       padding: 0 56px;
       height: 68px;
-      background: rgba(6, 10, 24, 0.45);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+      background: #060a18;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
+      width: 100%;
       z-index: 9999;
+      isolation: isolate;
     }
     .navbar-left {
       display: flex;
